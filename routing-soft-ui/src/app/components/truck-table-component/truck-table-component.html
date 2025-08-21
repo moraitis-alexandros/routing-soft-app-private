@@ -1,0 +1,43 @@
+<mat-card>
+  <mat-card-title>Truck List</mat-card-title>
+  <mat-card-content>
+    <table mat-table [dataSource]="trucks" class="mat-elevation-z8 full-width">
+
+      <!-- Unloading Time -->
+      <ng-container matColumnDef="unloadingTime">
+        <th mat-header-cell *matHeaderCellDef> Unloading Time (min) </th>
+        <td mat-cell *matCellDef="let truck"> {{ truck.unloadingTime }} </td>
+      </ng-container>
+
+      <!-- Max Speed -->
+      <ng-container matColumnDef="maxSpeed">
+        <th mat-header-cell *matHeaderCellDef> Max Speed (km/h) </th>
+        <td mat-cell *matCellDef="let truck"> {{ truck.maxSpeed }} </td>
+      </ng-container>
+
+      <!-- Capacity -->
+      <ng-container matColumnDef="capacity">
+        <th mat-header-cell *matHeaderCellDef> Capacity (kg) </th>
+        <td mat-cell *matCellDef="let truck"> {{ truck.capacity }} </td>
+      </ng-container>
+
+      <!-- Description -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let truck"> {{ truck.description }} </td>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let truck">
+          <button mat-raised-button color="warn" (click)="deleteTruck(truck.id)">Delete</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </mat-card-content>
+</mat-card>

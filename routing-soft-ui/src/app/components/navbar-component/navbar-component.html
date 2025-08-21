@@ -1,0 +1,28 @@
+<div class="d-flex flex-column bg-light">
+  <!-- Navbar at the top -->
+  <nav class="navbar navbar-dark bg-primary px-4">
+    <a class="navbar-brand cursor-pointer" [routerLink]="'/app-user-login-component'">
+      Single Vehicle Routing Application
+    </a>
+
+    <span class="me-3 d-flex gap-2 text-light align-items-center">
+      <!-- Display username & role if logged in, else "Login" -->
+      <span>
+        {{ user()?.username ? ('Welcome, ' + user()?.username + ' - ' + user()?.role) : '' }}
+      </span>
+
+      <!-- Logout button -->
+      <button
+        mat-icon-button
+        color="warn"
+        (click)="logout()"
+        [hidden]="!user()?.username"
+      >
+        <mat-icon>logout</mat-icon>
+      </button>
+    </span>
+  </nav>
+
+
+</div>
+   

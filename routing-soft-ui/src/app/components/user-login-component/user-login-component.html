@@ -1,0 +1,43 @@
+<p class="h4 text-center mb-4">User Login</p>
+
+<div class="d-flex justify-content-center">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form p-4 rounded shadow-sm bg-white w-50">
+
+    <!-- Email Field -->
+    <mat-form-field appearance="fill" class="w-100 mb-3">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="username" placeholder="Enter your email" />
+      <mat-error *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+        Email is missing or invalid
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Password Field -->
+    <mat-form-field appearance="fill" class="w-100 mb-4">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password" placeholder="Enter your password" />
+      <mat-error *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        Password is missing or invalid
+      </mat-error>
+    </mat-form-field>
+
+    <!-- Submit Button -->
+    <button type="submit" mat-flat-button color="primary" class="w-100 py-2" [disabled]="loginForm.invalid">
+      Login
+    </button>
+
+    <!-- Register Navigation Button -->
+    <button type="button" mat-flat-button color="accent" class="w-100 py-2 mt-3"
+      [routerLink]="['/app-user-registration-component']">
+      Register
+    </button>
+
+  </form>
+</div>
+
+<!-- Alerts for login status -->
+<div class="d-flex justify-content-center mt-3">
+  <div *ngIf="loginForm.touched && loginForm.invalid" class="alert alert-danger w-50 text-center shadow-sm">
+    Please fix the errors above to login
+  </div>
+</div>

@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.demo</groupId>
+    <artifactId>routing-soft</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>routing-soft</name>
+    <packaging>war</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.source>17</maven.compiler.source>
+        <junit.version>5.11.0</junit.version>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+<!-- The jakarta.servlet-api dependency provides the core Servlet API that is essential for handling HTTP requests and responses in Java web applications.
+This includes classes like HttpServletRequest, HttpServletResponse, and the basic lifecycle of servlets.
+It's marked with the provided scope because the servlet container (such as Tomcat, Jetty, or another Jakarta EE-compliant server) typically includes
+this API at runtime, so you don't need to package it with application. -->
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+<!-- The jersey-container-servlet dependency enables integration between Jersey, which is an implementation of JAX-RS
+(Java API for RESTful Web Services), and servlet-based environments. This allows you to run RESTful web services using Jersey
+within a servlet container. It bridges the gap between Jersey's JAX-RS-based annotations and the underlying servlet framework,
+letting you expose endpoints using annotations like @Path, @GET, and @POST.
+The jersey-container-servlet dependency allows Jersey to run inside a servlet container like Tomcat.
+It connects Jersey's REST API functionality to the web server's servlet system, enabling your @GET, @POST, and @Path
+methods to handle HTTP requests. Without it, Jersey can't process REST requests in a web application.-->
+        <dependency>
+            <groupId>org.glassfish.jersey.containers</groupId>
+            <artifactId>jersey-container-servlet</artifactId>
+            <version>3.1.3</version>
+        </dependency>
+
+<!-- The jersey-media-json-jackson dependency provides support for JSON processing using the Jackson library within the Jersey framework.
+It allows Jersey to automatically convert Java objects to JSON and vice versa, handling the content negotiation and media type resolution
+needed to process requests and responses with JSON data. This is particularly useful for REST APIs that communicate with front-end applications
+or other services using JSON.-->
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-jackson</artifactId>
+            <version>3.1.3</version>
+        </dependency>
+
+<!-- The jersey-cdi2-se dependency is used to integrate Jersey with the Contexts and Dependency Injection (CDI) framework in Java SE
+(Standard Edition) environments. It allows you to use CDI features like @Inject within your Jersey resources and providers, making it easier
+to manage object lifecycles and dependencies in a loosely coupled manner. This is especially helpful in modular applications or when working
+outside of a full Jakarta EE application server.-->
+        <dependency>
+            <groupId>org.glassfish.jersey.inject</groupId>
+            <artifactId>jersey-cdi2-se</artifactId>
+            <version>3.1.3</version>
+        </dependency>
+
+<!-- The weld-se-core dependency provides the Weld implementation of CDI for standalone Java SE applications.
+Weld is the reference implementation for CDI (context & dependency injection) and is used here to enable dependency injection and lifecycle management
+outside of a Jakarta EE container. Combined with jersey-cdi2-se, it brings powerful DI capabilities to your Jersey-based
+REST services, even when running as a standalone application without a full application server.-->
+        <dependency>
+            <groupId>org.jboss.weld.se</groupId>
+            <artifactId>weld-se-core</artifactId>
+            <version>5.1.2.Final</version>
+        </dependency>
+
+<!--HOW ALL ABOVE CBINDED TOGETHER?
+When you build a Java web application using Jersey and CDI, each part plays a role: the servlet API handles basic HTTP communication,
+Jersey turns your Java classes into RESTful web services, the Jersey servlet container connects Jersey to the web server, Jackson handles converting
+Java objects to JSON, and CDI (enabled by Weld) manages object creation and injection. Together, they let you create a REST API where HTTP requests
+are received by the servlet container, passed to Jersey, which calls your Java classes, uses CDI to inject needed services, and finally sends
+JSON responses back to the client -->
+
+
+
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.3.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-core -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>6.4.4.Final</version>
+        </dependency>
+
+
+        <!-- https://mvnrepository.com/artifact/org.hibernate.validator/hibernate-validator -->
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>8.0.1.Final</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.hibernate.orm/hibernate-hikaricp -->
+        <dependency>
+            <groupId>org.hibernate.orm</groupId>
+            <artifactId>hibernate-hikaricp</artifactId>
+            <version>6.4.4.Final</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>5.1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mindrot</groupId>
+            <artifactId>jbcrypt</artifactId>
+            <version>0.4</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>1.6.3</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct-processor -->
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>1.6.3</version>
+        </dependency>
+
+    <!-- Jwt Token implementation authentication/authorization required dependencies-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-api</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-impl</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt-jackson</artifactId>
+            <version>0.11.5</version>
+        </dependency>
+        <!-- All the above are for Jwt implementation-->
+
+        <!-- Dependency for sending email for user registration verification and also forgot password feature -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>jakarta.mail</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20231013</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.2.220</version> <!-- latest stable version -->
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.jboss.weld/weld-junit5 -->
+        <dependency>
+            <groupId>org.jboss.weld</groupId>
+            <artifactId>weld-junit5</artifactId>
+            <version>5.0.1.Final</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>routing</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

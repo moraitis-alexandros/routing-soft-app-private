@@ -1,0 +1,18 @@
+<div class="container mt-2">
+  <div class="d-flex flex-column gap-2">
+    <!-- Sidebar menu -->
+    <app-navbar-component></app-navbar-component>
+
+       <!-- Sidebar menu, only show if user is logged in -->
+    @if(user()) {
+      <app-list-group-menu-component></app-list-group-menu-component>
+    }
+    <!-- Main content -->
+     </div>
+    <div class="flex-grow-1 p-2">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+
+  

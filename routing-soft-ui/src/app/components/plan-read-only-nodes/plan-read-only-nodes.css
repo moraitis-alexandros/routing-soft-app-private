@@ -1,0 +1,13 @@
+#map {
+  width: 100%;
+  height: 500px; /* or 100% if parent has height */
+}
+
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #ccc;
+}

@@ -1,0 +1,16 @@
+<button mat-raised-button color="primary" (click)="toggleForm()">
+  {{ showForm ? 'Cancel' : 'Add Truck' }}
+</button>
+
+<!-- The form is always in DOM but hidden when showForm is false -->
+ <div class="mt-4">
+<app-truck-form-component
+  [hidden]="!showForm"
+  (truckAdded)="onTruckAdded()"
+></app-truck-form-component>
+</div>
+
+<!-- The table is always visible -->
+<div class="mt-4">
+<app-truck-table-component></app-truck-table-component>
+</div>

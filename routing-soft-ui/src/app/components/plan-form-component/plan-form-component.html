@@ -1,0 +1,54 @@
+<div #mapContainer id="map"></div>
+<form [formGroup]="planForm" (ngSubmit)="submitPlan()" novalidate>
+
+  <!-- Timeslot Length -->
+  <div class="form-group">
+    <label>Timeslot Length (minutes)</label>
+    <input type="number" formControlName="timeslotLength" />
+    <div class="error" *ngIf="planForm.get('timeslotLength')?.touched && planForm.get('timeslotLength')?.invalid">
+      <small *ngIf="planForm.get('timeslotLength')?.errors?.['required']">Timeslot length is required.</small>
+      <small *ngIf="planForm.get('timeslotLength')?.errors?.['min']">Minimum value is 1.</small>
+    </div>
+  </div>
+
+  <!-- Algorithm Spec -->
+  <div class="form-group">
+    <label>Algorithm Specification</label>
+    <select formControlName="algorithmSpec">
+      <option *ngFor="let option of algorithmOptions" [value]="option">{{ option }}</option>
+    </select>
+    <div class="error" *ngIf="planForm.get('algorithmSpec')?.touched && planForm.get('algorithmSpec')?.invalid">
+      <small *ngIf="planForm.get('algorithmSpec')?.errors?.['required']">Algorithm is required.</small>
+    </div>
+  </div>
+
+  <!-- Truck Selection -->
+  <div class="form-group">
+    <label>Select Trucks</label>
+    <div *ngFor="let truck of availableTrucks">
+      <input type="checkbox"
+             [value]="truck"
+             (change)="toggleTruckSelection($event, truck)">
+      {{ truck.description }} (ID: {{ truck.id }})
+    </div>
+    <div class="error" *ngIf="selectedTrucks.length === 0 && formSubmitted">
+      <small>At least one truck must be selected.</small>
+    </div>
+  </div>
+
+  <!-- Location Selection -->
+  <div class="form-group">
+    <label>Select Locations</label>
+    <div *ngFor="let location of availableLocations">
+      <input type="checkbox"
+             [value]="location"
+             (change)="toggleLocationSelection($event, location)">
+      {{ location.description }} (ID: {{ location.id }})
+    </div>
+    <div class="error" *ngIf="selectedLocations.length === 0 && formSubmitted">
+      <small>At least one location must be selected.</small>
+    </div>
+  </div>
+
+  <button type="submit">Add Plan</button>
+</form>

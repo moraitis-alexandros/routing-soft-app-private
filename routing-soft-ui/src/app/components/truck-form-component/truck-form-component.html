@@ -1,0 +1,78 @@
+<form [formGroup]="truckForm" (ngSubmit)="submitTruck()" novalidate>
+  
+  <!-- Unloading Time -->
+  <div class="form-group">
+    <label>Unloading Time (1–60 min)</label>
+    <input type="number" formControlName="unloadingTime" />
+    <div class="error"
+         [hidden]="!(truckForm.get('unloadingTime')?.touched && truckForm.get('unloadingTime')?.invalid)">
+      <small [hidden]="!truckForm.get('unloadingTime')?.errors?.['required']">
+        Unloading time is required.
+      </small>
+      <small [hidden]="!truckForm.get('unloadingTime')?.errors?.['min']">
+        Minimum value is 1.
+      </small>
+      <small [hidden]="!truckForm.get('unloadingTime')?.errors?.['max']">
+        Maximum value is 60.
+      </small>
+    </div>
+  </div>
+
+  <!-- Max Speed -->
+  <div class="form-group">
+    <label>Max Speed (1-100 km/h)</label>
+    <input type="number" formControlName="maxSpeed" />
+    <div class="error"
+         [hidden]="!(truckForm.get('maxSpeed')?.touched && truckForm.get('maxSpeed')?.invalid)">
+      <small [hidden]="!truckForm.get('maxSpeed')?.errors?.['required']">
+        Max speed is required.
+      </small>
+      <small [hidden]="!truckForm.get('maxSpeed')?.errors?.['min']">
+        Minimum value is 1.
+      </small>
+      <small [hidden]="!truckForm.get('maxSpeed')?.errors?.['max']">
+        Maximum value is 100.
+      </small>
+    </div>
+  </div>
+
+  <!-- Capacity -->
+  <div class="form-group">
+    <label>Capacity (1–40000)</label>
+    <input type="number" formControlName="capacity" />
+    <div class="error"
+         [hidden]="!(truckForm.get('capacity')?.touched && truckForm.get('capacity')?.invalid)">
+      <small [hidden]="!truckForm.get('capacity')?.errors?.['required']">
+        Capacity is required.
+      </small>
+      <small [hidden]="!truckForm.get('capacity')?.errors?.['min']">
+        Minimum value is 0.
+      </small>
+      <small [hidden]="!truckForm.get('capacity')?.errors?.['max']">
+        Maximum value is 40000.
+      </small>
+    </div>
+  </div>
+
+  <!-- Description -->
+  <div class="form-group">
+    <label>Description</label>
+    <input type="text" formControlName="description" />
+    <div class="error"
+         [hidden]="!(truckForm.get('description')?.touched && truckForm.get('description')?.invalid)">
+      <small [hidden]="!truckForm.get('description')?.errors?.['required']">
+        Description is required.
+      </small>
+      <small [hidden]="!truckForm.get('description')?.errors?.['minlength']">
+        Must be at least 5 characters.
+      </small>
+      <small [hidden]="!truckForm.get('description')?.errors?.['maxlength']">
+        Must be less than 255 characters.
+      </small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="truckForm.invalid">Add Truck</button>
+
+
+</form>

@@ -1,0 +1,20 @@
+<button mat-raised-button color="primary" (click)="toggleForm()">
+  {{ showForm ? 'Cancel' : 'New Location' }}
+</button>
+
+<!-- The form is always in DOM but hidden when showForm is false -->
+ <div class="mt-4">
+<app-location-node-form-component
+  *ngIf="showForm"
+  (nodeAdded)="nodeAdded()"
+></app-location-node-form-component>
+</div>
+
+<!-- The table is always visible -->
+<div class="mt-4">
+<app-location-node-table-component></app-location-node-table-component>
+</div>
+
+
+
+

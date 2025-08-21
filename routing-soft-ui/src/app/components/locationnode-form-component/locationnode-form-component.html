@@ -1,0 +1,73 @@
+<div #mapContainer id="map"></div>
+<form [formGroup]="nodeForm" (ngSubmit)="submitNode()" novalidate>
+
+  <!-- Description -->
+  <div class="form-group">
+    <label>Description</label>
+    <input type="text" formControlName="description" />
+    <div class="error"
+         [hidden]="!(nodeForm.get('description')?.touched && nodeForm.get('description')?.invalid)">
+      <small [hidden]="!nodeForm.get('description')?.errors?.['required']">
+        Description is required.
+      </small>
+      <small [hidden]="!nodeForm.get('description')?.errors?.['minlength']">
+        Must be at least 5 characters.
+      </small>
+      <small [hidden]="!nodeForm.get('description')?.errors?.['maxlength']">
+        Must be less than 255 characters.
+      </small>
+    </div>
+  </div>
+
+  <!-- Capacity -->
+  <div class="form-group">
+    <label>Capacity (1–40000)</label>
+    <input type="number" formControlName="capacity" />
+    <div class="error"
+         [hidden]="!(nodeForm.get('capacity')?.touched && nodeForm.get('capacity')?.invalid)">
+      <small [hidden]="!nodeForm.get('capacity')?.errors?.['required']">
+        Capacity is required.
+      </small>
+      <small [hidden]="!nodeForm.get('capacity')?.errors?.['min']">
+        Minimum value is 0.
+      </small>
+      <small [hidden]="!nodeForm.get('capacity')?.errors?.['max']">
+        Maximum value is 40000.
+      </small>
+    </div>
+  </div>
+
+  <!-- X Coordinate -->
+  <div class="form-group">
+    <label>X Coordinate</label>
+    <input type="number" formControlName="coordinatesX" />
+    <div class="error"
+         [hidden]="!(nodeForm.get('coordinatesX')?.touched && nodeForm.get('coordinatesX')?.invalid)">
+      <small [hidden]="!nodeForm.get('coordinatesX')?.errors?.['required']">
+        X coordinate is required.
+      </small>
+    </div>
+  </div>
+
+  <!-- Y Coordinate -->
+  <div class="form-group">
+    <label>Y Coordinate</label>
+    <input type="number" formControlName="coordinatesY" />
+    <div class="error"
+         [hidden]="!(nodeForm.get('coordinatesY')?.touched && nodeForm.get('coordinatesY')?.invalid)">
+      <small [hidden]="!nodeForm.get('coordinatesY')?.errors?.['required']">
+        Y coordinate is required.
+      </small>
+    </div>
+  </div>
+
+  <!-- Is Source -->
+  <div class="form-group">
+    <label>
+      <input type="checkbox" formControlName="isSource" />
+      Is Source
+    </label>
+  </div>
+
+  <button type="submit" [disabled]="nodeForm.invalid">Add Node</button>
+</form>

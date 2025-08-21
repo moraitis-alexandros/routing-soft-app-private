@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-card-title>Plan List</mat-card-title>
+  <mat-card-content>
+    <table mat-table [dataSource]="plans" class="mat-elevation-z8 full-width">
+
+ 
+      <ng-container matColumnDef="algorithmSpec">
+        <th mat-header-cell *matHeaderCellDef> Algorithm Specs</th>
+        <td mat-cell *matCellDef="let plan"> {{ plan.algorithmSpec }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="timeslotLength">
+        <th mat-header-cell *matHeaderCellDef> Timeslot Length </th>
+        <td mat-cell *matCellDef="let plan"> {{ plan.timeslotLength }} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="planStatus">
+        <th mat-header-cell *matHeaderCellDef> Status</th>
+        <td mat-cell *matCellDef="let plan"> {{ plan.planStatus }} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="createdAt">
+        <th mat-header-cell *matHeaderCellDef> Creation DateTime </th>
+        <td mat-cell *matCellDef="let plan"> {{ plan.createdAt}} </td>
+      </ng-container>
+
+      <!-- Actions -->
+<ng-container matColumnDef="actions"> 
+  <th mat-header-cell *matHeaderCellDef> Actions </th> 
+<td mat-cell *matCellDef="let plan"> 
+  <button class="me-2" mat-raised-button color="primary" (click)="viewPlan(plan)">View</button> 
+  <button class="me-2" mat-raised-button color="accent" (click)="executePlan(plan.id)">Execute</button>
+  <button class="me-2" mat-raised-button color="warn" (click)="deletePlan(plan.id)">Delete</button> 
+</td>
+</ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    </table>
+  </mat-card-content>
+</mat-card>

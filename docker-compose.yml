@@ -1,0 +1,47 @@
+version: "3.8"
+
+services:
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD_FILE: /run/secrets/mysql_root_password
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD_FILE: /run/secrets/mysql_user_password
+    ports:
+      - "${DB_PORT}:3306"
+    secrets:
+      - mysql_root_password
+      - mysql_user_password
+
+  backend:
+    build:
+      context: ./routing-soft-core
+    ports:
+      - "${BACKEND_PORT}:8080"
+    depends_on:
+      - db
+    environment:
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_NAME: ${MYSQL_DATABASE}
+      DB_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD_FILE: /run/secrets/mysql_user_password
+      JWT_SECRET_FILE: /run/secrets/jwt_secret
+    secrets:
+      - mysql_user_password
+      - jwt_secret
+
+  frontend:
+    build:
+      context: ./routing-soft-ui
+    ports:
+      - "${FRONTEND_PORT}:80"
+
+secrets:
+  mysql_root_password:
+    file: ./secrets/mysql_root_password.txt
+  mysql_user_password:
+    file: ./secrets/mysql_user_password.txt
+  jwt_secret:
+    file: ./secrets/jwt_secret.txt

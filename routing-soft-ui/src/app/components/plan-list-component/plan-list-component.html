@@ -1,0 +1,17 @@
+<button mat-raised-button color="primary" (click)="toggleForm()">
+  {{ showForm ? 'Cancel' : 'New Plan' }}
+</button>
+
+<!-- The form is always in DOM but hidden when showForm is false -->
+ <div class="mt-4">
+<app-plan-form-component
+  *ngIf="showForm"
+  (onPlanAdded)="onPlanAdded()"
+></app-plan-form-component>
+</div>
+
+<!-- The table is always visible -->
+<div class="mt-4">
+<app-plan-table-component></app-plan-table-component>
+</div>
+

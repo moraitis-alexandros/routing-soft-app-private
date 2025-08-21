@@ -1,0 +1,35 @@
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+                                 https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"
+             version="3.1">
+
+    <persistence-unit name="routingPU"
+                      transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <properties>
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+
+            <!-- Show parameter values in SQL output -->
+            <property name="hibernate.type" value="trace" />
+
+            <!-- JDBC and Hibernate connection settings -->
+            <property name="hibernate.connection.driver" value="com.mysql.cj.jdbc.Driver" />
+            <property name="hibernate.connection.provider_class" value="com.zaxxer.hikari.hibernate.HikariConnectionProvider" />
+            <property name="hibernate.hikari.dataSourceClassName" value="com.mysql.cj.jdbc.MysqlDataSource" />
+            <property name="hibernate.hikari.dataSource.url" value="jdbc:mysql://localhost:3306/${MYSQL_DATABASE}?serverTimezone=UTC" />
+            <property name="hibernate.hikari.dataSource.user" value="${MYSQL_USER}" />
+            <property name="hibernate.hikari.dataSource.password" value="${MYSQL_PASSWORD}" />
+            <!-- Automatically create/drop schema on startup/shutdown -->
+            <property name="hibernate.hbm2ddl.auto" value="update" />
+
+            <!-- Optional: explicit dialect -->
+            <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" /> -->
+
+            <!-- Optional: log startup and mapping details -->
+            <property name="hibernate.generate_statistics" value="true" />
+        </properties>
+    </persistence-unit>
+</persistence>

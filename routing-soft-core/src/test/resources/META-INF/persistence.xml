@@ -1,0 +1,34 @@
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence
+                                 https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"
+             version="3.1">
+
+    <persistence-unit name="routingPU"
+                      transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <class>org.routing.software.jpos.UserJpo</class>
+        <class>org.routing.software.jpos.TruckJpo</class>
+        <class>org.routing.software.jpos.LocationNodeJpo</class>
+        <class>org.routing.software.jpos.PlanJpo</class>
+        <class>org.routing.software.jpos.AssignmentJpo</class>
+
+        <properties>
+            <!-- Show SQL in logs -->
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.type" value="trace"/>
+            <property name="hibernate.generate_statistics" value="false"/>
+
+            <!-- H2 in-memory database for tests -->
+            <property name="hibernate.connection.driver" value="org.h2.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;MODE=MySQL"/>
+            <property name="hibernate.connection.username" value="sa"/>
+            <property name="hibernate.connection.password" value=""/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect"/>
+
+            <!-- Automatically create/drop schema for tests -->
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+        </properties>
+    </persistence-unit>
+</persistence>
